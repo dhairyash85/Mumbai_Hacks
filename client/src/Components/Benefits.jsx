@@ -56,16 +56,6 @@ export const Benefits = () => {
 
   return (
     <>
-      <section className="py-10 px-4 bg-black">
-        <SectionTitle
-          preTitle="Nextly Benefits"
-          title="Why should you use this landing page"
-        >
-          Nextly is a free landing page & marketing website template for
-          startups and indie projects. It's built with React and TailwindCSS.
-          And it's completely open-source.
-        </SectionTitle>
-      </section>
       <div className="pt-10 flex flex-wrap mb-20 lg:gap-10 lg:flex-nowrap">
         <div
           className={`flex items-center justify-center w-full lg:w-1/2 ${
@@ -75,8 +65,8 @@ export const Benefits = () => {
           <div>
             <img
               src="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbenefit-one.a3b4f792.png&w=640&q=75"
-              width={521}
-              height={521}
+              width="350"
+              height="350"
               alt="Features"
               className="object-cover"
               placeholder="blur"
