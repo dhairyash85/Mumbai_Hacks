@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import {abi, contract as contractAddress} from "../Constants.js"
 import { ethers } from 'ethers';
+import axiosInstance from '../Axios.js';
 
 const WalletContractContext = createContext();
 
@@ -23,6 +24,29 @@ export const WalletContractProvider = ({ children }) => {
             console.error("MetaMask not found. Please install it.");
         }
     };
+    const addKyc=async(formData)=>{
+        const {walletAddress, name, age, city, address, bank_account, adhar_num, image}=formData
+        const res=await axiosInstance.post('/kyc/add', {address:walletAddress, name:name, age:age, city:city, addr: address, bank_account: bank_account, adhar_num: adhar_num, image: image})
+        return res
+    }
+    const getKyc=async()=>{
+        if(walletAddress){
+            const res=await axiosInstance.get(`/kyc/${walletAddress}`)
+            return res
+        }
+        else return({error: "No address found"})
+    }
+    const addForm=async(formData)=>{
+        const res=await axiosInstance.post('/form/add', {formData})
+        return res
+    }
+
+    const getForms=async()=>{
+        if(walletAddress){
+            const res=await axiosInstance.get(`/form/${walletAddress}`)
+            return res
+        }
+    }
 
     const initializeContract = (signer) => {
         const contractInstance = new ethers.Contract(contractAddress, abi, signer);
@@ -34,7 +58,7 @@ export const WalletContractProvider = ({ children }) => {
     // }, []);
 
     return (
-        <WalletContractContext.Provider value={{ walletAddress, kycContract, connectWallet }}>
+        <WalletContractContext.Provider value={{ walletAddress, kycContract, connectWallet, addForm, addKyc, getForms, getKyc }}>
             {children}
         </WalletContractContext.Provider>
     );
