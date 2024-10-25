@@ -24,11 +24,14 @@ function Forms() {
 
     return (
         <>
-            <Navbar />
-            <div className="flex items-center">
+            <div className=" sticky top-0">
+                <Navbar />
+
+            </div>
+            <div className="flex items-center pt-24">
                 <img
                     src={formImage}
-                    width="500"
+                    width="700"
                     className="object-cover max-h-80"
                     alt="Hero Illustration"
                     loading="eager"
@@ -36,7 +39,7 @@ function Forms() {
                 <form className="mx-auto" onSubmit={handleSubmit}>
                     {step === 1 && (
                         <div>
-                            <div className="text-3xl text-white">Personal</div>
+                            <div className="text-4xl font-bold text-white">Personal</div>
                             <div className="mb-5 mt-5">
                                 <label className={inputfieldlabelclass}>Age</label>
                                 <input type="number" id="age" className={inputfieldclass} placeholder="69" required />
