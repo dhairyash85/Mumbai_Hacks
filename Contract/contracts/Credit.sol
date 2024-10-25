@@ -2,7 +2,7 @@
 pragma solidity ^0.8.24;
 
 
-contract KYC { 
+contract Credit { 
     enum Status{
         pending,
         approved,
@@ -19,7 +19,10 @@ contract KYC {
         Status st;
     }
 
+    mapping(address=>bytes32[]) private forms;
+
     mapping(address => Person) private kycData;
+
 
 
     address owner=0xe0AE955311088A18BeB7c52e5844d3aF5B90d804;
@@ -50,4 +53,12 @@ contract KYC {
     function getKYC(address user) public view returns (Person memory) {
         return kycData[user];
     }
+
+    function addForm(bytes32 form, address user) public onlyOwner{
+        forms[user].push(form);
+    }
+    function getForms(address user) public view returns (bytes32[] memory) {
+        return forms[user];
+    }
+
 }

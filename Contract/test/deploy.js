@@ -1,10 +1,10 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-  const KYC = await ethers.getContractFactory("KYC");
-  const kyc = await KYC.deploy();
-  console.log(kyc)
-  console.log("KYC deployed to:", kyc.target);
+  const Credit = await ethers.getContractFactory("Credit");
+  const credit = await Credit.deploy();
+  console.log(credit)
+  console.log("Credit deployed to:", credit.target);
 }
 main()
 .then(()=>console.log("Successful")).catch(err=>console.log("errr  ",  err))
