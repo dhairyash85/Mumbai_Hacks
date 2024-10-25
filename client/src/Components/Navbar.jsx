@@ -10,9 +10,12 @@ import { useWalletContract } from "../Context/WalletProvider";
 //import { Disclosure } from "@headlessui/react";
 
 export const Navbar = () => {
+
   const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
   const context=useWalletContract()
-  const {connectWallet}=context
+
+  // const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
+
   return (
     <div className="w-full bg-black">
       <nav className="container relative flex flex-wrap items-center justify-between p-8 mx-auto lg:justify-between xl:px-1">
@@ -48,7 +51,7 @@ export const Navbar = () => {
 
 
         {/* menu  */}
-        <div className="hidden text-center lg:flex lg:items-center">
+        {/* <div className="hidden text-center lg:flex lg:items-center">
           <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
             {navigation.map((menu, index) => (
               <li className="mr-3 nav__item" key={index}>
@@ -61,7 +64,7 @@ export const Navbar = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </nav>
     </div>
   );

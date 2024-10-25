@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Landing from "./Pages/Landing";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -13,6 +12,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/kyc" element={<KYC />} />
           <Route path="/dashboard" element={<Dashboar />} />
+           <Route path='/form' element={<Forms/>}/>
         </Routes>
       </BrowserRouter>
     </div>
