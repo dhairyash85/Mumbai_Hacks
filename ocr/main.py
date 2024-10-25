@@ -1,4 +1,5 @@
 import requests
+import sys
 from PIL import Image
 import pytesseract
 from pdf2image import convert_from_path
@@ -61,7 +62,7 @@ def send_to_gemini(text):
         print("Failed to send data:", response.status_code, response.text)
 
 if __name__ == "__main__":
-    file_path = 'billnewerer.pdf' 
+    file_path = sys.argv[1]  
     extracted_text = extract_text_from_document(file_path)
     
     if extracted_text:
