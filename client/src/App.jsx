@@ -1,9 +1,9 @@
-import { useState } from "react";
 import Landing from "./Pages/Landing";
 import "./App.css";
 import { BrowserRouter, Form, Route, Routes } from "react-router-dom";
 import KYC from "./Pages/KYC";
-import Forms from "./Pages/Forms";
+import Dashboar from "./Pages/Dashboar";
+import Forms from "./Pages/Form";
 
 function App() {
   return (
@@ -12,7 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/kyc" element={<KYC />} />
-          <Route path="/form" element={<Forms />} />
+          <Route path="/dashboard" element={<Dashboar />} />
+           <Route path='/form' element={<Forms/>}/>
         </Routes>
       </BrowserRouter>
     </div>

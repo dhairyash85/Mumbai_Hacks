@@ -1,9 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../Components/Navbar";
 import { Footer } from "../Components/Footer";
+import { useWalletContract } from "../Context/WalletProvider";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function KYC() {
   // State for form data
+  const context=useWalletContract()
+  const {connectWallet, walletAddress, addKyc, getKyc}=context
+  const navigate=useNavigate()
+  useEffect(()=>{
+    connectWallet()
+  },[])
+  useEffect(()=>{
+    setFormData((prev)=>{return{...prev, walletAddress: walletAddress}})
+    const getPrev=async()=>{
+        const res=await getKyc()
+        console.log(res)
+        if (!res.error){
+            
+            navigate('/dashboard')
+          }
+      }
+    getPrev()
+  },[walletAddress])
   const [formData, setFormData] = useState({
     walletAddress: "",
     name: "",
@@ -33,10 +55,46 @@ function KYC() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleImageUpload = async (imageFile) => {
+    const cloudinaryUrl =
+      "https://api.cloudinary.com/v1_1/dke7f8nkt/image/upload";
+    const formData = new FormData();
+
+    // Appending the image file and required parameters
+    formData.append("file", imageFile);
+    formData.append("upload_preset", "TraderHub");
+
+    try {
+      const res = await axios.post(cloudinaryUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setFormData(prev=>{return{...prev, image: res.data.secure_url}})
+      return res.data.secure_url; // Cloudinary URL of the uploaded image
+    } catch (err) {
+      console.error("Error uploading image:", err);
+      return null;
+    }
+  };
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // Handle the form submission, e.g., send the data to an API
-    console.log("Form submitted:", formData);
+    const image = await handleImageUpload(formData.image);
+    if(image){
+        try{
+            const res=await addKyc(formData)
+            console.log(res)
+            console.log("Form submitted:", formData);
+            toast.success("Form Submitted")
+        }catch(err){
+            console.log(err)
+        }
+        
+    }
+    else{
+        toast.error("Failed to upload image")
+    }
   };
 
   return (
@@ -69,7 +127,7 @@ function KYC() {
                   name="walletAddress"
                   placeholder="Wallet Address"
                   value={formData.walletAddress}
-                  onChange={handleChange}
+                //   onChange={handleChange}
                   required
                 />
                 <input
