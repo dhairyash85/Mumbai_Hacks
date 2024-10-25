@@ -1,116 +1,152 @@
 import React, { useState } from "react";
+import { Navbar } from "../Components/Navbar";
+import { Footer } from "../Components/Footer";
 
-const KYC = () => {
-    const [formData, setFormData] = useState({
-        addre: "",
-        name: "",
-        age: "",
-        city: "",
-        addr: "",
-        bank_account: "",
-        adhar_num: "",
-        image: null,
+function KYC() {
+  // State for form data
+  const [formData, setFormData] = useState({
+    walletAddress: "",
+    name: "",
+    age: "",
+    city: "",
+    homeAddress: "",
+    bankAccNumber: "",
+    aadharCardNumber: "",
+    image: null,
+  });
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
     });
+  };
 
-    const handleChange = (e) => {
-        const { name, value, type, files } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === "file" ? files[0] : value,
-        });
-    };
+  // Handle file input for image upload
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      image: e.target.files[0],
+    });
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Form submit logic here
-        console.log(formData);
-    };
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle the form submission, e.g., send the data to an API
+    console.log("Form submitted:", formData);
+  };
 
-    return (
-        <div className="min-h-screen bg-black min-w-screen flex justify-center items-center overflow-hidden">
-            <div className="relative z-10 p-8 bg-white rounded-2xl shadow-xl w-full max-w-md">
-                <h1 className="text-3xl font-bold text-center mb-6">Complete Your KYC</h1>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <input
-                        type="text"
-                        name="addre"
-                        placeholder="Address"
-                        value={formData.addre}
-                        onChange={handleChange}
-                        className="block w-full px-4 py-3 border rounded-lg"
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="block w-full px-4 py-3 border rounded-lg"
-                        required
-                    />
-                    <input
-                        type="number"
-                        name="age"
-                        placeholder="Age"
-                        value={formData.age}
-                        onChange={handleChange}
-                        className="block w-full px-4 py-3 border rounded-lg"
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="city"
-                        placeholder="City"
-                        value={formData.city}
-                        onChange={handleChange}
-                        className="block w-full px-4 py-3 border rounded-lg"
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="addr"
-                        placeholder="Address Line"
-                        value={formData.addr}
-                        onChange={handleChange}
-                        className="block w-full px-4 py-3 border rounded-lg"
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="bank_account"
-                        placeholder="Bank Account"
-                        value={formData.bank_account}
-                        onChange={handleChange}
-                        className="block w-full px-4 py-3 border rounded-lg"
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="adhar_num"
-                        placeholder="Aadhar Number"
-                        value={formData.adhar_num}
-                        onChange={handleChange}
-                        className="block w-full px-4 py-3 border rounded-lg"
-                        required
-                    />
-                    <input
-                        type="file"
-                        name="image"
-                        onChange={handleChange}
-                        className="block w-full px-4 py-3 border rounded-lg"
-                        accept="image/*"
-                        required
-                    />
-                    <button type="submit" className="w-full py-3 bg-black text-white rounded-lg hover:bg-purple-500 transition-all">
-                        Submit KYC
-                    </button>
-                </form>
+  return (
+    <div className="bg-black">
+      <div className="px-[200px]">
+        <Navbar />
+      </div>
+      <div className="min-h-full w-full bg-black flex justify-center items-center">
+        <div className="flex max-w-4xl w-full bg-black shadow-lg rounded-lg overflow-hidden">
+          {/* Left Side - Image */}
+          <div className="w-1/2 flex items-center justify-center bg-black">
+            <img
+              src="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbenefit-two.1d7648d5.png&w=640&q=75"
+              alt="KYC Illustration"
+              className="w-full h-auto"
+              style={{ maxHeight: "400px" }} // Optional max height for image
+            />
+          </div>
+
+          {/* Right Side - Form */}
+          <div className="w-1/2 p-6 flex flex-col justify-center">
+            <div className="flex flex-col items-center">
+              <h1 className="text-2xl font-extrabold text-white mb-6">
+                KYC Form
+              </h1>
+              <form className="w-full max-w-sm" onSubmit={handleSubmit}>
+                <input
+                  className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 placeholder-white mb-4"
+                  type="text"
+                  name="walletAddress"
+                  placeholder="Wallet Address"
+                  value={formData.walletAddress}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 placeholder-white mb-4"
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 placeholder-white mb-4"
+                  type="number"
+                  name="age"
+                  placeholder="Age"
+                  value={formData.age}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 placeholder-white mb-4"
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={formData.city}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 placeholder-white mb-4"
+                  type="text"
+                  name="homeAddress"
+                  placeholder="Home Address"
+                  value={formData.homeAddress}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 placeholder-white mb-4"
+                  type="text"
+                  name="bankAccNumber"
+                  placeholder="Bank Account Number"
+                  value={formData.bankAccNumber}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 placeholder-white mb-4"
+                  type="text"
+                  name="aadharCardNumber"
+                  placeholder="Aadhar Card Number"
+                  value={formData.aadharCardNumber}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 mb-4"
+                  type="file"
+                  name="image"
+                  onChange={handleFileChange}
+                  required
+                />
+                <button
+                  type="submit"
+                  className="w-full mt-4 tracking-wide font-semibold bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-500 transition-all duration-300 ease-in-out"
+                >
+                  Submit
+                </button>
+              </form>
             </div>
-            <div className="absolute w-40 h-40 rounded-full bg-gray-400 -top-5 -left-5 hidden md:block"></div>
-            <div className="absolute w-48 h-48 rounded-full bg-gray-400 -bottom-5 -right-5 hidden md:block"></div>
+          </div>
         </div>
-    );
-};
+      </div>
+      <Footer />
+    </div>
+  );
+}
 
 export default KYC;

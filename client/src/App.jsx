@@ -6,13 +6,13 @@ import KYC from "./Pages/KYC";
 
 function App() {
   return (
-    <div className="px-[170px] bg-black min-h-screen">
-    <BrowserRouter>
-    <Routes>
-    <Route path='/' element={<Landing/>}/>
-    <Route path='/kyc' element={<KYC/>}/>
-    </Routes>
-    </BrowserRouter>
+    <div className="min-h-screen">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/kyc" element={<KYC />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
