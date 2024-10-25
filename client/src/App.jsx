@@ -1,12 +1,12 @@
-import { useState } from 'react'
-
+import { useState } from "react";
+import Landing from "./Components/Landing";
 
 function App() {
   return (
     <>
-      Hare Krishna
+      <Landing />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
