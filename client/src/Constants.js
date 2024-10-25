@@ -2,6 +2,24 @@ export const abi=[
     {
       "inputs": [
         {
+          "internalType": "bytes32",
+          "name": "form",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "addForm",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
           "internalType": "address",
           "name": "addre",
           "type": "address"
@@ -68,6 +86,25 @@ export const abi=[
           "type": "address"
         }
       ],
+      "name": "getForms",
+      "outputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
       "name": "getKYC",
       "outputs": [
         {
@@ -108,12 +145,12 @@ export const abi=[
               "type": "string"
             },
             {
-              "internalType": "enum KYC.Status",
+              "internalType": "enum Credit.Status",
               "name": "st",
               "type": "uint8"
             }
           ],
-          "internalType": "struct KYC.Person",
+          "internalType": "struct Credit.Person",
           "name": "",
           "type": "tuple"
         }
@@ -136,6 +173,6 @@ export const abi=[
     }
   ]
 
-export const contract="0xd730BE197f5F5DAD0FD1F67B7B2a0bF5df9856d7"
+export const contract="0xB2eACDE98b77b570e28CB295b094A872e58e6e24"
 
 // export default{abi, contract}
