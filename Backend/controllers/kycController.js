@@ -12,7 +12,8 @@ exports.addKYC = async (req, res) => {
         res.status(200).json({ message: "KYC data added successfully" });
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: error.message });
+
+        res.status(500).json({ error: error });
     }
 };
 
@@ -24,7 +25,7 @@ exports.approveKYC = async (req, res) => {
         await tx.wait();
         res.status(200).json({ message: "KYC approved" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error });
     }
 };
 
@@ -36,7 +37,7 @@ exports.rejectKYC = async (req, res) => {
         await tx.wait();
         res.status(200).json({ message: "KYC rejected" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error });
     }
 };
 
@@ -44,8 +45,8 @@ exports.getKYC = async (req, res) => {
     const contract=req.contract
     const { address } = req.params;
     try {
+        console.log('yay')
         const kycData = await contract.getKYC(address);
-        console.log(kycData)
         const formattedKycData = {
             name: kycData[0],
             age: kycData[1].toString(),  // BigInt to string
@@ -60,6 +61,6 @@ exports.getKYC = async (req, res) => {
         res.status(200).json(formattedKycData);
         // res.status(200).json(kycData);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error });
     }
 };

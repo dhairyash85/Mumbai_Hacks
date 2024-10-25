@@ -11,7 +11,6 @@ const attachContract = (req, res, next) => {
     req.provider = provider;
     req.wallet = wallet;
     req.contract = contract;
-    console.log(contract)
     next();
 };
 

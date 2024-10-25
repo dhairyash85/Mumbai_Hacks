@@ -1,4 +1,9 @@
 "use client";
+
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { useWalletContract } from "../Context/WalletProvider";
+
 //import a from "next/a";
 //import ThemeChanger from "./DarkSwitch";
 //import img from "next/image";
@@ -6,7 +11,8 @@
 
 export const Navbar = () => {
   const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
-
+  const context=useWalletContract()
+  const {connectWallet}=context
   return (
     <div className="w-full bg-black">
       <nav className="container relative flex flex-wrap items-center justify-between p-8 mx-auto lg:justify-between xl:px-1">
@@ -30,18 +36,16 @@ export const Navbar = () => {
         <div className="gap-3 nav__item mr-2 lg:flex ml-auto lg:ml-0 lg:order-2">
           {/* <ThemeChanger /> */}
           <div className="hidden mr-3 lg:flex nav__item">
-            <a
-              href="/"
+            <Link
+              to="/kyc"
               className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5"
+              onClick={()=>{connectWallet}}
             >
               Get Started
-            </a>
+            </Link>
           </div>
         </div>
 
-        <button>
-            Get Started
-        </button>
 
         {/* menu  */}
         <div className="hidden text-center lg:flex lg:items-center">
