@@ -29,9 +29,9 @@ export const WalletContractProvider = ({ children }) => {
         setKycContract(contractInstance);
     };
 
-    useEffect(() => {
-        connectWallet();
-    }, []);
+    // useEffect(() => {
+    //     connectWallet();
+    // }, []);
 
     return (
         <WalletContractContext.Provider value={{ walletAddress, kycContract, connectWallet }}>
