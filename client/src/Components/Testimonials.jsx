@@ -24,12 +24,11 @@ export const Testimonials = () => {
   return (
     <div>
       <SectionTitle
-        preTitle="Watch a video"
-        title="Learn how to fulfill your needs"
+        preTitle="Testimonials"
+        title="Here's what our customers said"
       >
-        This section is to highlight a promo or demo video of your product.
-        Analysts say a landing page with video has a 3% higher conversion rate.
-        So, don’t forget to add one. Just like this.
+        Testimonials is a great way to increase the brand trust and awareness.
+        Use this section to highlight your popular customers.
       </SectionTitle>
       <div className="grid gap-10 lg:grid-cols-2 xl:grid-cols-3">
         <div className="lg:col-span-2 xl:col-auto">
@@ -86,7 +85,7 @@ function Avatar({ image, name, title }) {
           width="40"
           height="40"
           alt="Avatar"
-          className="object-cover" 
+          className="object-cover"
         />
       </div>
       <div>
