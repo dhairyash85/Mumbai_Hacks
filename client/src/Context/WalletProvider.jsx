@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import {abi, contract as contractAddress} from "../Constants"
+import {abi, contract as contractAddress} from "../Constants.js"
 import { ethers } from 'ethers';
 
 const WalletContractContext = createContext();
 
 export const WalletContractProvider = ({ children }) => {
     const [walletAddress, setWalletAddress] = useState(null);
-    const [contract, setContract] = useState(null);
+    const [kycContract, setKycContract] = useState(null);
     const connectWallet = async () => {
         if (window.ethereum) {
             try {
@@ -26,7 +26,7 @@ export const WalletContractProvider = ({ children }) => {
 
     const initializeContract = (signer) => {
         const contractInstance = new ethers.Contract(contractAddress, abi, signer);
-        setContract(contractInstance);
+        setKycContract(contractInstance);
     };
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export const WalletContractProvider = ({ children }) => {
     }, []);
 
     return (
-        <WalletContractContext.Provider value={{ walletAddress, contract, connectWallet }}>
+        <WalletContractContext.Provider value={{ walletAddress, kycContract, connectWallet }}>
             {children}
         </WalletContractContext.Provider>
     );

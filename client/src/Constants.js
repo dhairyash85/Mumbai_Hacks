@@ -1,4 +1,4 @@
-const abi=[
+export const abi=[
     {
       "inputs": [
         {
@@ -136,6 +136,6 @@ const abi=[
     }
   ]
 
-const contract="0xd730BE197f5F5DAD0FD1F67B7B2a0bF5df9856d7"
+export const contract="0xd730BE197f5F5DAD0FD1F67B7B2a0bF5df9856d7"
 
-export default{abi, contract}
+// export default{abi, contract}
