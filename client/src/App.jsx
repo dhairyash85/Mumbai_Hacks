@@ -1,9 +1,9 @@
 import Landing from "./Pages/Landing";
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Form, Route, Routes } from "react-router-dom";
 import KYC from "./Pages/KYC";
 import Dashboar from "./Pages/Dashboar";
-import Forms from "./Pages/Form";
+import Forms from "./Pages/Forms";
 
 function App() {
   return (
