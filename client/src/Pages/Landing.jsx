@@ -7,7 +7,7 @@ import { Testimonials } from "../Components/Testimonials";
 
 function Landing() {
   return (
-    <div className="px-[170px] bg-black">
+    <div className="px-[100px] bg-black">
       <Navbar />
       <Hero />
       <Benefits />
