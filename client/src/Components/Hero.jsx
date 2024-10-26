@@ -32,13 +32,7 @@ export const Hero = () => {
                 className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md"
               >
                 Get Started
-              </a> */}
-              <button
-                onClick={() => navigate("/kyc")}
-                className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md"
-              >
-                Get Started
-              </button>
+              </a> 
             </div>
           </div>
         </div>
