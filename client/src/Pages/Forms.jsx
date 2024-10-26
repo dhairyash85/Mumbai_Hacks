@@ -3,6 +3,7 @@ import { Navbar } from "../Components/Navbar";
 import formImage from "/form.png";
 import { Link } from "react-router-dom";
 import { Footer } from "../Components/Footer";
+import axios from "axios";
 
 const inputfieldlabelclass =
   "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
@@ -23,10 +24,18 @@ function Forms() {
     foodCost: "",
     savingsBalance: "",
     checkingBalance: "",
-    document: null,
+    netWorth: "",
+    totalAssets: "",
+    totalLiabilities: "",
+    emergencyFundBalance: "",
+    retirementAccountBalance: "",
+    investmentAccountBalance: "",
+    autoLoanBalance: "",
+    rentPayments: "",
   });
 
-  // Handle input change
+  const [predictedCreditScore, setPredictedCreditScore] = useState(null);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -35,95 +44,83 @@ function Forms() {
     });
   };
 
-  // Handle file upload
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      document: e.target.files[0],
-    });
-  };
-
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here, you can send the formData to the backend or process it as needed
-    console.log(formData);
+
+    const payload = {
+      AutoLoanBalance: Number(formData.autoLoanBalance),
+      RentPayments: Number(formData.rentPayments),
+      NetWorth: Number(formData.netWorth),
+      TotalAssets: 20002300, // Static value as per your request
+      TotalLiabilities: Number(formData.totalLiabilities),
+      MonthlyHousingCosts: Number(formData.housingCost),
+      MonthlyEntertainmentCosts: Number(formData.foodCost),
+      Age: Number(formData.age),
+      NumberOfDependents: Number(formData.dependents),
+      SavingsAccountBalance: Number(formData.savingsBalance),
+      CheckingAccountBalance: Number(formData.checkingBalance),
+      InvestmentAccountBalance: Number(formData.investmentAccountBalance),
+      RetirementAccountBalance: 3023000, // Static value as per your request
+      EmergencyFundBalance: Number(formData.emergencyFundBalance),
+    };
+
+    console.log("Submitting payload:", payload); // Log the payload to see if values are changing
+
+    try {
+      const response = await axios.post("http://localhost:5100/predict", payload);
+      setPredictedCreditScore(response.data.predicted_credit_score);
+      console.log("Predicted Credit Score:", response.data.predicted_credit_score);
+      
+      // Optional: Reset form data after submission
+      // setFormData({
+      //   age: "",
+      //   maritalStatus: "",
+      //   dependents: "",
+      //   employmentStatus: "",
+      //   healthInsurance: "",
+      //   lifeInsurance: "",
+      //   carInsurance: "",
+      //   housingCost: "",
+      //   transportCost: "",
+      //   foodCost: "",
+      //   savingsBalance: "",
+      //   checkingBalance: "",
+      //   netWorth: "",
+      //   totalAssets: "",
+      //   totalLiabilities: "",
+      //   emergencyFundBalance: "",
+      //   retirementAccountBalance: "",
+      //   investmentAccountBalance: "",
+      //   autoLoanBalance: "",
+      //   rentPayments: "",
+      // });
+      
+    } catch (error) {
+      console.error("Error submitting data:", error);
+      setPredictedCreditScore(null); // Reset if there's an error
+    }
   };
 
   return (
     <div className="bg-black">
-      <div>
-        <div className="w-full bg-black">
-          <nav className="container relative flex flex-wrap items-center justify-between py-8 lg:justify-between xl:px-1">
-            {/* Logo */}
-            <Link
-              to="/"
-              className="flex items-center justify-center pl-[100px] space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100"
-            >
-              <img
-                src="/logo.png" // Update this path to your logo image
-                width="32"
-                alt="Logo"
-                className="w-8"
-              />
-              <span>Credify Pro</span>
-            </Link>
-
-            {/* Get Started button - only show on medium and larger screens */}
-            <div className="hidden lg:flex gap-3 nav__item lg:ml-auto lg:order-2">
-              <Link
-                to="/kyc"
-                className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5"
-                onClick={() => {
-                  connectWallet;
-                }}
-              >
-                Get Started
-              </Link>
-            </div>
-
-            {/* Hamburger Icon for Mobile - only show on small screens */}
-            {/* <button
-          className="text-white lg:hidden ml-auto"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+      <div className="w-full bg-black">
+        <nav className="container relative flex flex-wrap items-center justify-between py-8 lg:justify-between xl:px-1">
+          <Link
+            to="/"
+            className="flex items-center justify-center pl-[100px] space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
-        </button> */}
-
-            {/* Menu - Adjust visibility based on state */}
-            {/* <div
-          className={`${
-            isOpen ? "block" : "hidden"
-          } w-full lg:flex lg:w-auto lg:items-center text-center`}
-        >
-          <ul className="justify-end flex-1 list-none lg:flex lg:pt-0 pt-6">
-            {navigation.map((menu, index) => (
-              <li className="mr-3 nav__item" key={index}>
-                <a
-                  href="/kyc"
-                  className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-gray-800"
-                >
-                  {menu}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div> */}
-          </nav>
-        </div>
+            <img src="/logo.png" width="32" alt="Logo" className="w-8" />
+            <span>Credify Pro</span>
+          </Link>
+          <div className="hidden lg:flex gap-3 nav__item lg:ml-auto lg:order-2">
+            <Link
+              to="/kyc"
+              className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5"
+            >
+              Get Started
+            </Link>
+          </div>
+        </nav>
       </div>
       <div className="pt-10 flex items-center h-screen bg-black">
         <img
@@ -191,9 +188,7 @@ function Forms() {
 
           <div className="text-3xl mt-8 mb-4">Insurance Status</div>
           <div className="mb-5">
-            <label className={inputfieldlabelclass}>
-              Health Insurance Status
-            </label>
+            <label className={inputfieldlabelclass}>Health Insurance Status</label>
             <input
               type="text"
               name="healthInsurance"
@@ -205,9 +200,7 @@ function Forms() {
             />
           </div>
           <div className="mb-5">
-            <label className={inputfieldlabelclass}>
-              Life Insurance Status
-            </label>
+            <label className={inputfieldlabelclass}>Life Insurance Status</label>
             <select
               name="lifeInsurance"
               value={formData.lifeInsurance}
@@ -271,11 +264,9 @@ function Forms() {
             />
           </div>
 
-          <div className="text-3xl mt-8 mb-4">Account Balances</div>
+          <div className="text-3xl mt-8 mb-4">Financial Information</div>
           <div className="mb-5">
-            <label className={inputfieldlabelclass}>
-              Savings Account Balance
-            </label>
+            <label className={inputfieldlabelclass}>Savings Account Balance</label>
             <input
               type="number"
               name="savingsBalance"
@@ -287,9 +278,7 @@ function Forms() {
             />
           </div>
           <div className="mb-5">
-            <label className={inputfieldlabelclass}>
-              Checking Account Balance
-            </label>
+            <label className={inputfieldlabelclass}>Checking Account Balance</label>
             <input
               type="number"
               name="checkingBalance"
@@ -300,23 +289,115 @@ function Forms() {
               required
             />
           </div>
-
           <div className="mb-5">
-            <label className={inputfieldlabelclass}>Upload Document</label>
+            <label className={inputfieldlabelclass}>Net Worth</label>
             <input
-              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600"
-              id="upload-document"
-              type="file"
-              onChange={handleFileChange}
+              type="number"
+              name="netWorth"
+              value={formData.netWorth}
+              onChange={handleInputChange}
+              className={inputfieldclass}
+              placeholder="Enter net worth"
+              required
+            />
+          </div>
+          <div className="mb-5">
+            <label className={inputfieldlabelclass}>Total Assets</label>
+            <input
+              type="number"
+              name="totalAssets"
+              value={formData.totalAssets}
+              onChange={handleInputChange}
+              className={inputfieldclass}
+              placeholder="Enter total assets"
+              required
+            />
+          </div>
+          <div className="mb-5">
+            <label className={inputfieldlabelclass}>Total Liabilities</label>
+            <input
+              type="number"
+              name="totalLiabilities"
+              value={formData.totalLiabilities}
+              onChange={handleInputChange}
+              className={inputfieldclass}
+              placeholder="Enter total liabilities"
+              required
+            />
+          </div>
+          <div className="mb-5">
+            <label className={inputfieldlabelclass}>Emergency Fund Balance</label>
+            <input
+              type="number"
+              name="emergencyFundBalance"
+              value={formData.emergencyFundBalance}
+              onChange={handleInputChange}
+              className={inputfieldclass}
+              placeholder="Enter emergency fund balance"
+              required
+            />
+          </div>
+          <div className="mb-5">
+            <label className={inputfieldlabelclass}>Retirement Account Balance</label>
+            <input
+              type="number"
+              name="retirementAccountBalance"
+              value={formData.retirementAccountBalance}
+              onChange={handleInputChange}
+              className={inputfieldclass}
+              placeholder="Enter retirement account balance"
+              required
+            />
+          </div>
+          <div className="mb-5">
+            <label className={inputfieldlabelclass}>Investment Account Balance</label>
+            <input
+              type="number"
+              name="investmentAccountBalance"
+              value={formData.investmentAccountBalance}
+              onChange={handleInputChange}
+              className={inputfieldclass}
+              placeholder="Enter investment account balance"
+              required
+            />
+          </div>
+          <div className="mb-5">
+            <label className={inputfieldlabelclass}>Auto Loan Balance</label>
+            <input
+              type="number"
+              name="autoLoanBalance"
+              value={formData.autoLoanBalance}
+              onChange={handleInputChange}
+              className={inputfieldclass}
+              placeholder="Enter auto loan balance"
+              required
+            />
+          </div>
+          <div className="mb-5">
+            <label className={inputfieldlabelclass}>Rent Payments</label>
+            <input
+              type="number"
+              name="rentPayments"
+              value={formData.rentPayments}
+              onChange={handleInputChange}
+              className={inputfieldclass}
+              placeholder="Enter rent payments"
+              required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-700"
+            className="w-full mt-4 text-white bg-indigo-600 rounded-md px-4 py-2"
           >
-            Submit
+            Predict Credit Score
           </button>
+
+          {predictedCreditScore !== null && (
+            <div className="mt-4 text-lg">
+              Predicted Credit Score: {predictedCreditScore}
+            </div>
+          )}
         </form>
       </div>
       <Footer />
