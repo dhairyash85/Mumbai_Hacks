@@ -51,32 +51,41 @@ function Upload() {
 
     const sendImageUrlToApi = async (imageUrl) => {
         try {
+            // Send the image URL to the API
             const response = await axios.post('http://localhost:5000/car', {
                 url: imageUrl,
             }, {
                 headers: {
                     'Content-Type': 'application/json',
-                }
+                },
             });
-            
+    
             console.log('Response from API:', response.data);
-            
-            // Split the output string by newline and filter out empty strings
+    
+            // Process the output data
             const outputData = response.data.output
                 .split('\n')
                 .map(item => item.trim())
                 .filter(item => item !== ''); // Remove any empty strings
-            
-            // Ensure the outputData has the expected number of items
+    
+            // Check the length of outputData
             if (outputData.length === 4) {
                 setApiResponse(outputData); // Store the parsed API response
             } else {
                 console.error('Unexpected output format:', outputData);
             }
         } catch (error) {
-            console.error('Error sending image URL to API:', error);
+            // Handle CORS errors specifically
+            if (error.response) {
+                console.error('Error response from API:', error.response.data);
+            } else if (error.request) {
+                console.error('No response received:', error.request);
+            } else {
+                console.error('Error sending image URL to API:', error.message);
+            }
         }
     };
+    
     
     
 
