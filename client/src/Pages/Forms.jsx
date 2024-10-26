@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navbar } from "../Components/Navbar";
 import formImage from "/form.png";
 import { Link } from "react-router-dom";
+import { Footer } from "../Components/Footer";
 
 const inputfieldlabelclass =
   "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
@@ -50,7 +51,7 @@ function Forms() {
   };
 
   return (
-    <>
+    <div className="bg-black">
       <div>
         <div className="w-full bg-black">
           <nav className="container relative flex flex-wrap items-center justify-between py-8 lg:justify-between xl:px-1">
@@ -318,7 +319,8 @@ function Forms() {
           </button>
         </form>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }
 
