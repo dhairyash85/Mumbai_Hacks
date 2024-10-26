@@ -136,38 +136,40 @@ function Upload() {
                 </th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td className="py-2 px-4 border-b border-gray-600">
-                  Amount to be Paid
-                </td>
-                <td className="py-2 px-4 border-b border-gray-600">
-                  {apiResponse[0]}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-4 border-b border-gray-600">
-                  Total Amount Paid
-                </td>
-                <td className="py-2 px-4 border-b border-gray-600">
-                  {apiResponse[1]}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-4 border-b border-gray-600">Due Date</td>
-                <td className="py-2 px-4 border-b border-gray-600">
-                  {apiResponse[2]}
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-4 border-b border-gray-600">
-                  Interest Rate
-                </td>
-                <td className="py-2 px-4 border-b border-gray-600">
-                  {apiResponse[3]}
-                </td>
-              </tr>
-            </tbody>
+            {
+                apiResponse && <tbody>
+                <tr>
+                  <td className="py-2 px-4 border-b border-gray-600">
+                    Amount to be Paid
+                  </td>
+                  <td className="py-2 px-4 border-b border-gray-600">
+                    {apiResponse[0]}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b border-gray-600">
+                    Total Amount Paid
+                  </td>
+                  <td className="py-2 px-4 border-b border-gray-600">
+                    {apiResponse[1]}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b border-gray-600">Due Date</td>
+                  <td className="py-2 px-4 border-b border-gray-600">
+                    {apiResponse[2]}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b border-gray-600">
+                    Interest Rate
+                  </td>
+                  <td className="py-2 px-4 border-b border-gray-600">
+                    {apiResponse[3]}
+                  </td>
+                </tr>
+              </tbody>
+            }
           </table>
         </div>
       
