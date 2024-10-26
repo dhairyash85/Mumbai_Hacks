@@ -1,7 +1,11 @@
 //import { div } from "./components/div";
 //import heroImg from "./img/hero.png";
+import { useNavigate } from "react-router-dom";
+
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="flex flex-wrap bg-black">
@@ -17,14 +21,20 @@ export const Hero = () => {
             </div>
 
             <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
-              <a
-                href="https://web3templates.com/templates/nextly-landing-page-template-for-startups"
+              {/* <a
+                href="/kyc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md"
               >
                 Get Started
-              </a>
+              </a> */}
+              <button
+                onClick={() => navigate("/kyc")}
+                className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md"
+              >
+                Get Started
+              </button>
             </div>
           </div>
         </div>

@@ -90,6 +90,7 @@ function KYC() {
         }catch(err){
             console.log(err)
         }
+        navigate('/form')
         
     }
     else{
