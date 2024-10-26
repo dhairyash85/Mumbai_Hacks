@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "../Components/Navbar";
 import formImage from "/form.png";
 import { Link } from "react-router-dom";
 import { Footer } from "../Components/Footer";
+// import axios from "axios";
+import { useWalletContract } from "../Context/WalletProvider";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const inputfieldlabelclass =
   "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
@@ -33,6 +36,7 @@ function Forms() {
     autoLoanBalance: "",
     rentPayments: "",
   });
+  const {addForm, connectWallet, walletAddress, addFinance}=useWalletContract()
 
   const [predictedCreditScore, setPredictedCreditScore] = useState(null);
 
@@ -44,9 +48,50 @@ function Forms() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  // const handleSubmit = async (e) => {
+    // Handle file upload
+    const handleFileChange = (e) => {
+      setFormData({
+        ...formData,
+        document: e.target.files[0],
+    });
+  };
+  
+  // Handle form submission
+  const handleFileUpload = async (file) => {
+    const cloudinaryUrl = "https://api.cloudinary.com/v1_1/dke7f8nkt/upload";
+    const formData = new FormData();
+    
+    // Determine the resource type based on the file type
+    const resourceType = file.type === "application/pdf" ? "raw" : "image";
+    
+    // Appending the file and required parameters
+    formData.append("file", file);
+    formData.append("upload_preset", "TraderHub");
+    
+    try {
+      const res = await axios.post(cloudinaryUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        params: { resource_type: resourceType }
+      });
+      setFormData(prev=>{return{...prev,document:res.data.secure_url}})
+      return res.data.secure_url; // Cloudinary URL of the uploaded file
+    } catch (err) {
+      console.error("Error uploading file:", err);
+      return null;
+    }
+  };
+  
+  const handleSubmit = async(e) => {
     e.preventDefault();
-
+    await connectWallet()
+    // if(!walletAddress){
+    //   return toast.error('Please connect your wallet')
+      
+    // }
+    
     const payload = {
       AutoLoanBalance: Number(formData.autoLoanBalance),
       RentPayments: Number(formData.rentPayments),
@@ -65,7 +110,7 @@ function Forms() {
     };
 
     console.log("Submitting payload:", payload); // Log the payload to see if values are changing
-
+    await addFinance(payload)
     try {
       const response = await axios.post("http://localhost:5100/predict", payload);
       setPredictedCreditScore(response.data.predicted_credit_score);
@@ -98,6 +143,17 @@ function Forms() {
     } catch (error) {
       console.error("Error submitting data:", error);
       setPredictedCreditScore(null); // Reset if there's an error
+    }
+    console.log(formData);
+    try{
+
+      // const url=await handleFileUpload(formData.document)
+      // if(url){
+        const res=await addForm(formData)
+        console.log(res)
+      // }
+    }catch(err){
+      console.log(err)
     }
   };
 

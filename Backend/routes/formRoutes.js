@@ -4,6 +4,6 @@ const formController = require("../controllers/formController");
 const router = express.Router();
 
 router.post("/add", formController.addForm);
-router.get("/:address", formController.getForms);
+router.get("/:userAddress", formController.getForms);
 
 module.exports = router;
