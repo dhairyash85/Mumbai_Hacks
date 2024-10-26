@@ -95,21 +95,20 @@ function KYC() {
 
     // Handle the form submission, e.g., send the data to an API
     const image = await handleImageUpload(formData.image);
-    if (image) {
-      try {
-        const res = await addKyc(formData);
-        console.log(res);
-        console.log("Form submitted:", formData);
-        toast.success("Form Submitted");
-        navigate("/dashboard"); // Optionally navigate after submission
-      } catch (err) {
-        console.error(err);
-        setError("Failed to submit KYC. Please try again."); // Set error state
-        toast.error("Failed to submit KYC. Please try again."); // Show toast error message
-      }
-    } else {
-      setError("Failed to upload image"); // Set error state
-      toast.error("Failed to upload image");
+    if(image){
+        try{
+            const res=await addKyc(formData)
+            console.log(res)
+            console.log("Form submitted:", formData);
+            toast.success("Form Submitted")
+        }catch(err){
+            console.log(err)
+        }
+        navigate('/form')
+        
+    }
+    else{
+        toast.error("Failed to upload image")
     }
     setLoading(false); // Set loading state to false after submission
   };

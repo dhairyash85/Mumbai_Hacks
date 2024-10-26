@@ -1,7 +1,11 @@
 //import { div } from "./components/div";
 //import heroImg from "./img/hero.png";
+import { useNavigate } from "react-router-dom";
+
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="flex flex-wrap bg-black">
@@ -28,7 +32,13 @@ export const Hero = () => {
                 className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md"
               >
                 Get Started
-              </a>
+              </a> */}
+              <button
+                onClick={() => navigate("/kyc")}
+                className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md"
+              >
+                Get Started
+              </button>
             </div>
           </div>
         </div>
