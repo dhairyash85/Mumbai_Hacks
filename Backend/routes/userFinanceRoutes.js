@@ -4,8 +4,9 @@ const userFinanceController = require('../controllers/userFinanceController');
 
 // Route to add finance data
 router.post('/addFinanceData', userFinanceController.addFinanceData);
-
+router.post('/set',  userFinanceController.setAutoLoanBalance);
 // Route to get finance data by wallet address
 router.get('/getFinanceData/:walletAddress',  userFinanceController.getFinanceData);
+
 
 module.exports = router;

@@ -17,6 +17,7 @@ export const WalletContractProvider = ({ children }) => {
         const address = await signer.getAddress();
         setWalletAddress(address);
         initializeContract(signer);
+        return address
       } catch (error) {
         console.error("Wallet connection failed:", error);
       }
@@ -62,11 +63,29 @@ export const WalletContractProvider = ({ children }) => {
   };
   const addForm = async (formData) => {
     if(!walletAddress){
-        return {error:"randike"}
+        await connectWallet()
     }
     const res = await axiosInstance.post("/form/add", { walletAddress, formData });
     return res;
   };
+  const sendLoanData = async (amount) => {
+    if(!walletAddress){
+        await connectWallet().then(async(address)=>{
+          console.log(amount)
+    console.log(address)
+    const res = await axiosInstance.post("/finance/set", { amount, address });
+    console.log(res)
+    return res;
+        })
+    }else{
+
+    
+    console.log(amount)
+    console.log(walletAddress)
+    const res = await axiosInstance.post("/finance/set", { amount, walletAddress });
+    console.log(res)
+    return res;
+  };} 
   const addFinance = async (formData) => {
     if(!walletAddress){
         return {error:"randike"}
@@ -122,6 +141,7 @@ export const WalletContractProvider = ({ children }) => {
         getKyc,
         addFinance,
         getFinance,
+        sendLoanData
       }}
     >
       {children}

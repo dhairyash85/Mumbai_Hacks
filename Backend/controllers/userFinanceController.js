@@ -53,4 +53,42 @@ const getFinanceData = async (req, res) => {
     }
 };
 
-module.exports = { addFinanceData, getFinanceData };
+const setAutoLoanBalance = async (req, res) => {
+    const { amount, address } = req.body;
+    console.log(req.body)
+    console.log("Amount:", amount);
+    console.log("Wallet Address:", address);
+
+    // Validate inputs
+    if (amount <= 0) {
+        return res.status(400).send("Amount must be greater than zero.");
+    }
+
+    try {
+        const userFinanceData = await UserFinanceData.findOne({ walletAddress:address });
+        console.log(userFinanceData)
+        if (!userFinanceData) {
+            return res.status(404).send("No finance data found for this wallet address");
+        }
+
+        // Check if sufficient balance is available
+        if (userFinanceData.autoLoanBalance < amount) {
+            return res.status(400).send("Insufficient auto loan balance.");
+        }
+
+        // Reduce the auto loan balance
+        userFinanceData.autoLoanBalance -= amount;
+        await userFinanceData.save();
+
+        res.status(200).json({
+            message: "Auto loan balance updated successfully",
+            updatedBalance: userFinanceData.autoLoanBalance,
+        });
+    } catch (error) {
+        console.error("Error updating auto loan balance:", error);
+        res.status(500).send("Error updating auto loan balance");
+    }
+};
+
+
+module.exports = { addFinanceData, getFinanceData ,setAutoLoanBalance};
