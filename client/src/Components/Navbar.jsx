@@ -24,7 +24,7 @@ export const Navbar = () => {
             alt="Logo"
             className="w-8"
           />
-          <span>Credify Pro</span>
+          <span className="text-indigo-300">Credify Pro</span>
         </Link>
 
         {/* Get Started button - only show on medium and larger screens */}
