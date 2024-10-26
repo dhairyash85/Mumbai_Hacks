@@ -34,34 +34,35 @@ export const Testimonials = () => {
         <div className="lg:col-span-2 xl:col-auto">
           <div className="flex flex-col justify-between w-full h-full bg-gray-600 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal text-white">
-              Share a real <Mark>testimonial</Mark> that hits some of your
-              benefits from one of your popular customers.
+              It was an <Mark>Exhilarating</Mark> experience to pull and push
+              the cash. To get the cash in form of credits.
             </p>
             <Avatar
               image="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fuser1.71c84e11.jpg&w=48&q=75"
-              name="Sarah Steiner"
-              title="VP Sales at Google"
+              name="Shiv Pratik Hande"
+              title="Chief Technical Officer at Credify Pro"
             />
           </div>
         </div>
         <div>
           <div className="flex flex-col justify-between w-full h-full bg-gray-600 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal text-white">
-              Make sure you only pick the <Mark>right sentence</Mark> to keep it
-              short and simple.
+              The platform made it easy to upload my documents and receive
+              <Mark>personalized</Mark> insights that helped me understand my
+              financial standing better.
             </p>
             <Avatar
               image="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fuser2.33ea1ca7.jpg&w=48&q=75"
-              name="Dylan Ambrose"
-              title="Lead marketer at Netflix"
+              name="Riya Sharma"
+              title="Entrepreneur"
             />
           </div>
         </div>
         <div>
           <div className="flex flex-col justify-between w-full h-full bg-gray-600 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
             <p className="text-2xl leading-normal text-white">
-              This is an <Mark>awesome</Mark> landing page template I&apos;ve
-              seen. I would use this for anything.
+              Extremely <Mark>satisfied</Mark> with the service much recommended
+              to all the newcomers in finance sector
             </p>
             <Avatar
               image="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fuser3.b804ab99.jpg&w=48&q=75"
@@ -89,7 +90,7 @@ function Avatar({ image, name, title }) {
         />
       </div>
       <div>
-        <div className="text-lg font-medium">{name}</div>
+        <div className="text-xl text-indigo-300 font-medium">{name}</div>
         <div className="text-gray-600 dark:text-white">{title}</div>
       </div>
     </div>

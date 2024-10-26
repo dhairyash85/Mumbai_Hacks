@@ -8,24 +8,32 @@ import { useNavigate } from "react-router-dom";
 
 function KYC() {
   // State for form data
-  const context=useWalletContract()
-  const {connectWallet, walletAddress, addKyc, getKyc}=context
-  const navigate=useNavigate()
-  useEffect(()=>{
-    connectWallet()
-  },[])
-  useEffect(()=>{
-    setFormData((prev)=>{return{...prev, walletAddress: walletAddress}})
-    const getPrev=async()=>{
-        const res=await getKyc()
-        console.log(res)
-        if (!res.error){
-            
-            navigate('/dashboard')
-          }
+  const context = useWalletContract();
+  const { connectWallet, walletAddress, addKyc, getKyc } = context;
+  const navigate = useNavigate();
+
+  // State for loading and error
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    connectWallet();
+  }, []);
+
+  useEffect(() => {
+    setFormData((prev) => {
+      return { ...prev, walletAddress: walletAddress };
+    });
+    const getPrev = async () => {
+      const res = await getKyc();
+      console.log(res);
+      if (!res.error) {
+        navigate("/dashboard");
       }
-    getPrev()
-  },[walletAddress])
+    };
+    getPrev();
+  }, [walletAddress]);
+
   const [formData, setFormData] = useState({
     walletAddress: "",
     name: "",
@@ -70,31 +78,40 @@ function KYC() {
           "Content-Type": "multipart/form-data",
         },
       });
-      setFormData(prev=>{return{...prev, image: res.data.secure_url}})
+      setFormData((prev) => {
+        return { ...prev, image: res.data.secure_url };
+      });
       return res.data.secure_url; // Cloudinary URL of the uploaded image
     } catch (err) {
       console.error("Error uploading image:", err);
       return null;
     }
   };
-  const handleSubmit = async(e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading state to true
+    setError(""); // Reset error state
+
     // Handle the form submission, e.g., send the data to an API
     const image = await handleImageUpload(formData.image);
-    if(image){
-        try{
-            const res=await addKyc(formData)
-            console.log(res)
-            console.log("Form submitted:", formData);
-            toast.success("Form Submitted")
-        }catch(err){
-            console.log(err)
-        }
-        
+    if (image) {
+      try {
+        const res = await addKyc(formData);
+        console.log(res);
+        console.log("Form submitted:", formData);
+        toast.success("Form Submitted");
+        navigate("/dashboard"); // Optionally navigate after submission
+      } catch (err) {
+        console.error(err);
+        setError("Failed to submit KYC. Please try again."); // Set error state
+        toast.error("Failed to submit KYC. Please try again."); // Show toast error message
+      }
+    } else {
+      setError("Failed to upload image"); // Set error state
+      toast.error("Failed to upload image");
     }
-    else{
-        toast.error("Failed to upload image")
-    }
+    setLoading(false); // Set loading state to false after submission
   };
 
   return (
@@ -120,6 +137,7 @@ function KYC() {
               <h1 className="text-2xl font-extrabold text-white mb-6">
                 KYC Form
               </h1>
+              {error && <div className="text-red-500 mb-4">{error}</div>}
               <form className="w-full max-w-sm" onSubmit={handleSubmit}>
                 <input
                   className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 placeholder-white mb-4"
@@ -127,7 +145,6 @@ function KYC() {
                   name="walletAddress"
                   placeholder="Wallet Address"
                   value={formData.walletAddress}
-                //   onChange={handleChange}
                   required
                 />
                 <input
@@ -193,9 +210,12 @@ function KYC() {
                 />
                 <button
                   type="submit"
-                  className="w-full mt-4 tracking-wide font-semibold bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-500 transition-all duration-300 ease-in-out"
+                  className={`w-full mt-4 tracking-wide font-semibold bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-500 transition-all duration-300 ease-in-out ${
+                    loading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  disabled={loading} // Disable button while loading
                 >
-                  Submit
+                  {loading ? "Submitting..." : "Submit"}
                 </button>
               </form>
             </div>

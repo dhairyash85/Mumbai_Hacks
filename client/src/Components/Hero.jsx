@@ -11,14 +11,18 @@ export const Hero = () => {
               Credify Pro
             </h1>
             <div className="py-5 leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-              Credify Pro is a free landing page & marketing website template
-              for startups and indie projects. It&apos;s built with React.js &
-              TailwindCSS. And it&apos;s completely open-source.
+              Credify Pro is a free landing page and marketing website template
+              designed specifically for startups and indie projects. It provides
+              a sleek and modern design that helps showcase your brand
+              effectively. As an open-source project, it
+              encourages collaboration and innovation within the developer
+              community, making it an excellent choice for anyone looking to
+              launch their online presence quickly and efficiently.
             </div>
 
             <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
               <a
-                href="https://web3templates.com/templates/nextly-landing-page-template-for-startups"
+                href="/kyc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md"
