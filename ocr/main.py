@@ -3,6 +3,7 @@ import sys
 from PIL import Image
 import pytesseract
 from pdf2image import convert_from_path
+from io import BytesIO
 
 def ocr_from_pdf(pdf_path):
     try:
@@ -18,20 +19,16 @@ def ocr_from_pdf(pdf_path):
     
     return extracted_text
 
-def ocr_from_image(image_path):
-    try:
-        img = Image.open(image_path)
-    except Exception as e:
-        print(f"Error opening image: {e}")
-        return ""
+def ocr_from_image(image):
+    return pytesseract.image_to_string(image)
 
-    return pytesseract.image_to_string(img)
-
-def extract_text_from_document(file_path):
-    if file_path.lower().endswith('.pdf'):
-        return ocr_from_pdf(file_path)
+def download_file(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return BytesIO(response.content)
     else:
-        return ocr_from_image(file_path)
+        print(f"Failed to download file: {response.status_code} {response.text}")
+        return None
 
 def send_to_gemini(text):
     url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyAT9-mtIv1KyG4UVAApApJstfnz4DwCMhk'
@@ -44,7 +41,7 @@ def send_to_gemini(text):
             {
                 "parts": [
                     {
-                        "text": f"Extract the following details from the text:\n{text} amount to be repaid, total amount paid, due date, InterestRate etc. on first line give the amount to be repaid second total amount page third due date and 4th interest rate i dont want any other text descriptipn just give what i asked"
+                        "text": f"Extract the following details from the text:\n{text} amount to be repaid, total amount paid, due date, InterestRate etc. on first line give the amount to be repaid second total amount page third due date and 4th interest rate i dont want any other text descriptipon just give what i asked"
                     }
                 ]
             }
@@ -55,18 +52,34 @@ def send_to_gemini(text):
     
     if response.status_code == 200:
         response_data = response.json()
-        print("csfully.")
-        print("Gemini API Response:")
-        print(response_data['candidates'][0]['content']['parts'][0]['text'])  # Print the entire response
+        # print("Successfully processed.")
+        # Return the response text to be used later
+        return response_data['candidates'][0]['content']['parts'][0]['text']
     else:
         print("Failed to send data:", response.status_code, response.text)
+        return None
 
 if __name__ == "__main__":
-    file_path = sys.argv[1]  
-    extracted_text = extract_text_from_document(file_path)
-    
-    if extracted_text:
-        print("Extracted Text:")
-        print(extracted_text)
-
-        send_to_gemini(extracted_text)
+    if len(sys.argv) > 1:
+        document_url = sys.argv[1]
+        
+        # Download the file from the URL
+        file = download_file(document_url)
+        if file:
+            # Determine the type of file (PDF or image)
+            if document_url.lower().endswith('.pdf'):
+                extracted_text = ocr_from_pdf(file)
+            else:
+                image = Image.open(file)
+                extracted_text = ocr_from_image(image)
+            
+            if extracted_text:
+                # print("Extracted Text:")
+                # print(extracted_text)
+                gemini_response = send_to_gemini(extracted_text)
+                
+                if gemini_response:
+                    # print("Gemini Response:")
+                    print(gemini_response)  # Print the Gemini response
+    else:
+        print("No document URL provided.")
