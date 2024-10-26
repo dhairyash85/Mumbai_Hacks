@@ -30,6 +30,24 @@ export const Navbar = () => {
         {/* Get Started button - only show on medium and larger screens */}
         <div className="hidden lg:flex gap-3 nav__item mr-2 lg:ml-auto lg:order-2">
           <Link
+            to="/upload"
+            className="px-6 py-2 text-white rounded-md md:ml-5"
+            onClick={() => {
+              connectWallet;
+            }}
+          >
+            Upload
+          </Link>
+          <Link
+            to="/dashboard"
+            className="px-6 py-2 text-white rounded-md md:ml-5"
+            onClick={() => {
+              connectWallet;
+            }}
+          >
+            Dashboard
+          </Link>
+          <Link
             to="/kyc"
             className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5"
             onClick={() => {

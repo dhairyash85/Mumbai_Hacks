@@ -28,7 +28,7 @@ const Dashboard = () => {
     datasets: [
       {
         label: "Revenue",
-        data: [300, 350, 400, 450, 500, 550, 600,650,700,750,800,850,900,950,1000],
+        data: [300, 650, 200, 450, 580, 720, 600,650,100,750,800,450,900,365,1000],
         borderColor: "rgba(99, 102, 241, 1)", // Indigo color
         backgroundColor: "rgba(99, 102, 241, 0.2)",
         fill: true,
