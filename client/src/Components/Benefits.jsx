@@ -2,15 +2,14 @@ import React from "react";
 
 const MyIcon = () => (
   <svg
-    role="img"
-    width="24"
-    height="24"
-    className="w-5 h-5"
-    viewBox="0 0 24 24"
-    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
+    x="0px"
+    y="0px"
+    width="100"
+    height="100"
+    viewBox="0 0 24 24"
   >
-    <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 18a8 8 0 118-8 8 8 0 01-8 8z" />
+    <path d="M 5 3 C 3.897 3 3 3.897 3 5 L 3 19 C 3 20.103 3.897 21 5 21 L 19 21 C 20.103 21 21 20.103 21 19 L 21 9.2421875 L 19 11.242188 L 19.001953 19 L 5 19 L 5 5 L 16.757812 5 L 18.757812 3 L 5 3 z M 21.292969 3.2929688 L 11 13.585938 L 7.7070312 10.292969 L 6.2929688 11.707031 L 11 16.414062 L 22.707031 4.7070312 L 21.292969 3.2929688 z"></path>
   </svg>
 );
 
@@ -31,13 +30,13 @@ export const Benefits = () => {
         headline: "Improve acquisition",
         description:
           "Enhance your marketing strategies to attract new customers effectively.",
-        icon: <MyIcon />, 
+        icon: <MyIcon />,
       },
       {
         headline: "Drive customer retention",
         description:
           "Implement loyalty programs and personalized experiences to keep customers coming back.",
-        icon: <MyIcon />, 
+        icon: <MyIcon />,
       },
     ],
   };
