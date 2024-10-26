@@ -11,7 +11,7 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full px-[100px] sm:px-[0px] bg-black">
+    <div className="w-full px-[100px] sm:px-[0px] bg-black border-b-[1px] mb-10 border-white">
       <nav className="container relative flex flex-wrap items-center justify-between py-8 lg:justify-between xl:px-1">
         {/* Logo */}
         <Link
