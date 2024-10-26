@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
+// SectionTitle Component
 const SectionTitle = ({ preTitle, title, children }) => {
   return (
     <div className="mb-12 text-center">
@@ -45,7 +47,7 @@ const Faq = () => {
   return (
     <div className="mt-10">
       <SectionTitle preTitle="FAQ" title="Frequently Asked Questions">
-        Answer your customers possible questions here, it will increase the
+        Answer your customers' possible questions here; it will increase the
         conversion rate as well as support or chat requests.
       </SectionTitle>
       <div className="!p-0">
@@ -64,11 +66,19 @@ const Faq = () => {
                     } w-5 h-5 text-indigo-400`}
                   />
                 </button>
-                {openIndex === index && ( // Show answer if the current index is open
-                  <div className="rounded-lg px-4 pt-4 pb-2 text-gray-500 dark:text-gray-300">
-                    {item.answer}
-                  </div>
-                )}
+                <AnimatePresence>
+                  {openIndex === index && ( // Show answer if the current index is open
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="rounded-lg px-4 pt-4 pb-2 text-gray-500 dark:text-gray-300"
+                    >
+                      {item.answer}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           ))}
