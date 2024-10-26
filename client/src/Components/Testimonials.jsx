@@ -1,10 +1,5 @@
-import React from "react";
-//import { div } from "@/components/div"; // Ensure this component is compatible with React
-
-// Import user images
-//import userOneImg from "../../public/img/user1.jpg"; // Adjust paths as necessary
-//import userTwoImg from "../../public/img/user2.jpg";
-//import userThreeImg from "../../public/img/user3.jpg";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 // SectionTitle Component
 const SectionTitle = ({ preTitle, title, children }) => {
@@ -27,52 +22,51 @@ export const Testimonials = () => {
         preTitle="Testimonials"
         title="Here's what our customers said"
       >
-        Testimonials is a great way to increase the brand trust and awareness.
+        Testimonials are a great way to increase brand trust and awareness.
         Use this section to highlight your popular customers.
       </SectionTitle>
       <div className="grid gap-10 lg:grid-cols-2 xl:grid-cols-3">
-        <div className="lg:col-span-2 xl:col-auto">
-          <div className="flex flex-col justify-between w-full h-full bg-gray-600 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
-            <p className="text-2xl leading-normal text-white">
-              It was an <Mark>Exhilarating</Mark> experience to pull and push
-              the cash. To get the cash in form of credits.
-            </p>
-            <Avatar
-              image="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fuser1.71c84e11.jpg&w=48&q=75"
-              name="Shiv Pratik Hande"
-              title="Chief Technical Officer at Credify Pro"
-            />
-          </div>
-        </div>
-        <div>
-          <div className="flex flex-col justify-between w-full h-full bg-gray-600 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
-            <p className="text-2xl leading-normal text-white">
-              The platform made it easy to upload my documents and receive
-              <Mark>personalized</Mark> insights that helped me understand my
-              financial standing better.
-            </p>
-            <Avatar
-              image="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fuser2.33ea1ca7.jpg&w=48&q=75"
-              name="Riya Sharma"
-              title="Entrepreneur"
-            />
-          </div>
-        </div>
-        <div>
-          <div className="flex flex-col justify-between w-full h-full bg-gray-600 px-14 rounded-2xl py-14 dark:bg-trueGray-800">
-            <p className="text-2xl leading-normal text-white">
-              Extremely <Mark>satisfied</Mark> with the service much recommended
-              to all the newcomers in finance sector
-            </p>
-            <Avatar
-              image="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fuser3.b804ab99.jpg&w=48&q=75"
-              name="Gabrielle Winn"
-              title="Co-founder of Acme Inc"
-            />
-          </div>
-        </div>
+        <TestimonialCard
+          quote="It was an exhilarating experience to pull and push the cash. To get the cash in form of credits."
+          name="shushma rajit"
+          title="Chief Technical Officer at Credify Pro"
+          image="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fuser1.71c84e11.jpg&w=48&q=75"
+        />
+        <TestimonialCard
+          quote="The platform made it easy to upload my documents and receive personalized insights that helped me understand my financial standing better."
+          name="Riya Sharma"
+          title="Entrepreneur"
+          image="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fuser2.33ea1ca7.jpg&w=48&q=75"
+        />
+        <TestimonialCard
+          quote="Extremely satisfied with the service, much recommended to all newcomers in the finance sector."
+          name="Gabrielle Winn"
+          title="Co-founder of Acme Inc"
+          image="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fuser3.b804ab99.jpg&w=48&q=75"
+        />
       </div>
     </div>
+  );
+};
+
+// TestimonialCard Component with Animation and Overflow Handling
+const TestimonialCard = ({ quote, name, title, image }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <motion.div
+      ref={ref}
+      className="flex flex-col justify-between w-full h-full bg-gray-600 px-14 rounded-2xl py-14 dark:bg-trueGray-800"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 60 }}
+      transition={{ duration: 0.5 }}
+    >
+      <p className="text-2xl leading-normal text-white overflow-hidden whitespace-nowrap overflow-ellipsis">
+        {quote}
+      </p>
+      <Avatar image={image} name={name} title={title} />
+    </motion.div>
   );
 };
 

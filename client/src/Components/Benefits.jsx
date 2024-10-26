@@ -1,4 +1,6 @@
 import React from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const MyIcon = () => (
   <svg
@@ -14,7 +16,6 @@ const MyIcon = () => (
 );
 
 export const Benefits = () => {
-  // Define the content array with benefits and their descriptions
   const content = {
     imgPos: "left",
     headline: "Benefits of Our Service",
@@ -41,86 +42,78 @@ export const Benefits = () => {
     ],
   };
 
-  const SectionTitle = ({ preTitle, title, children }) => {
-    return (
-      <div className="mb-8 text-center">
-        <h2 className="text-lg font-semibold text-indigo-500 uppercase">
-          {preTitle}
-        </h2>
-        <h1 className="mt-2 text-3xl font-bold text-white">{title}</h1>
-        <p className="mx-auto mt-4 text-lg w-[50%] text-white">{children}</p>
-      </div>
-    );
-  };
-
   return (
-    <>
-      <div className="pt-10 flex flex-wrap mb-20 lg:gap-10 lg:flex-nowrap">
-        <div
-          className={`flex items-center justify-center w-full lg:w-1/2 ${
-            content.imgPos === "right" ? "lg:order-1" : ""
-          }`}
-        >
-          <div>
-            <img
-              src="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbenefit-one.a3b4f792.png&w=640&q=75"
-              width="350"
-              height="350"
-              alt="Features"
-              className="object-cover"
-              placeholder="blur"
-            />
-          </div>
-        </div>
+    <div className="pt-10 flex flex-wrap mb-20 lg:gap-10 lg:flex-nowrap">
+      <div className={`flex items-center justify-center w-full lg:w-1/2 ${content.imgPos === "right" ? "lg:order-1" : ""}`}>
+        <motion.img
+          src="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbenefit-one.a3b4f792.png&w=640&q=75"
+          width="350"
+          height="350"
+          alt="Features"
+          className="object-cover"
+          placeholder="blur"
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5 }}
+        />
+      </div>
 
-        <div
-          className={`flex flex-wrap items-center w-full lg:w-1/2 ${
-            content.imgPos === "right" ? "lg:justify-end" : ""
-          }`}
-        >
-          <div>
-            <div className="flex flex-col w-full mt-4">
-              <h3 className="max-w-2xl mt-3 text-3xl font-bold leading-snug tracking-tight text-gray-800 lg:leading-tight lg:text-4xl dark:text-white">
-                {content.headline}
-              </h3>
-
-              <p className="max-w-2xl py-4 text-lg leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-                {content.description}
-              </p>
-            </div>
-
-            <div className="w-full mt-5">
-              {content.points.map((item, index) => (
-                <FeatureItem
-                  key={index}
-                  headline={item.headline}
-                  icon={item.icon}
-                >
-                  {item.description}
-                </FeatureItem>
-              ))}
-            </div>
+      <div className={`flex flex-wrap items-center w-full lg:w-1/2 ${content.imgPos === "right" ? "lg:justify-end" : ""}`}>
+        <div>
+          <ScrollTitle title={content.headline} description={content.description} />
+          <div className="w-full mt-5">
+            {content.points.map((item, index) => (
+              <ScrollFeatureItem key={index} headline={item.headline} icon={item.icon}>
+                {item.description}
+              </ScrollFeatureItem>
+            ))}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-function FeatureItem({ headline, icon, children }) {
+function ScrollTitle({ title, description }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
   return (
-    <div className="flex items-start mt-8 space-x-3">
+    <motion.div
+      ref={ref}
+      className="mb-8 text-center"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -20 }}
+      transition={{ duration: 0.5 }}
+    >
+      <h2 className="text-lg font-semibold text-indigo-500 uppercase"></h2>
+      <h1 className="mt-2 text-3xl font-bold text-white">{title}</h1>
+      <p className="mx-auto mt-4 text-lg w-[50%] text-white">{description}</p>
+    </motion.div>
+  );
+}
+
+function ScrollFeatureItem({ headline, icon, children }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <motion.div
+      ref={ref}
+      className="flex items-start mt-8 space-x-3"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 60 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="flex items-center justify-center flex-shrink-0 mt-1 bg-indigo-500 rounded-md w-11 h-11">
         {React.cloneElement(icon, {
           className: "w-7 h-7 text-indigo-50",
         })}
       </div>
       <div>
-        <h4 className="text-xl font-medium text-gray-800 dark:text-gray-200">
-          {headline}
-        </h4>
+        <h4 className="text-xl font-medium text-gray-800 dark:text-gray-200">{headline}</h4>
         <p className="mt-1 text-gray-500 dark:text-gray-400">{children}</p>
       </div>
-    </div>
+    </motion.div>
   );
 }

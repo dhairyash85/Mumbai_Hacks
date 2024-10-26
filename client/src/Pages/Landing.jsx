@@ -9,11 +9,26 @@ function Landing() {
   return (
     <div className="px-[100px] bg-black">
       <Navbar />
-      <Hero />
-      <Benefits />
-      <Testimonials />
-      <Faq />
-      <Footer />
+      <div className=" mt-16">
+        <Hero />
+
+      </div>
+      <div className=" pt-24">
+        <Benefits />
+
+      </div>
+      <div className=" pt-28">
+        <Testimonials />
+
+      </div>
+      <div className=" pt-28">
+        <Faq />
+
+      </div>
+      <div className=" pt-24">
+        <Footer />
+
+      </div>
     </div>
   );
 }
