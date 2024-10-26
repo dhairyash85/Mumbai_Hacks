@@ -30,7 +30,8 @@ function decrypt(encryptedData) {
 // pinata.gateways.get
 async function addForm(req, res) {
     const { walletAddress, formData } = req.body;
-
+    console.log(formData)
+    console.log(walletAddress)
     try {
         const contract = req.contract;
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navbar } from "../Components/Navbar";
 import axios from "axios";
+import { useWalletContract } from "../Context/WalletProvider";
 
 const inputfieldlabelclass =
   "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
@@ -13,7 +14,8 @@ function Upload() {
     category: "",
   });
   const [apiResponse, setApiResponse] = useState(null); // New state for API response
-
+  const context = useWalletContract();
+  const { sendLoanData } = context;
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -44,7 +46,8 @@ function Upload() {
       console.log(uploadedImageUrl);
 
       // Send the image URL to the Flask API
-      await sendImageUrlToApi(uploadedImageUrl);
+      const resp=await sendImageUrlToApi(uploadedImageUrl);
+      console.log(resp)
       return uploadedImageUrl; // Cloudinary URL of the uploaded image
     } catch (err) {
       console.error("Error uploading image:", err);
@@ -52,10 +55,12 @@ function Upload() {
     }
   };
 
+  
+
   const sendImageUrlToApi = async (imageUrl) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/car",
+        "http://localhost:5001/car",
         {
           url: imageUrl,
         },
@@ -77,6 +82,8 @@ function Upload() {
       // Ensure the outputData has the expected number of items
       if (outputData.length === 4) {
         setApiResponse(outputData); // Store the parsed API response
+        const resp=await sendLoanData(outputData[1].replace("$",'').replace(',',''))
+        console.log(resp)
       } else {
         console.error("Unexpected output format:", outputData);
       }
@@ -90,6 +97,7 @@ function Upload() {
       ...prev,
       category: e.target.value,
     }));
+
   };
 
   return (
