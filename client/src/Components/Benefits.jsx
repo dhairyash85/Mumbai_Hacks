@@ -21,21 +21,21 @@ export const Benefits = () => {
     description: "Explore how our services can enhance your business.",
     points: [
       {
-        headline: "Understand your customers",
+        headline: "Enhanced Credit Insights",
         description:
-          "Gain insights into customer preferences and behavior to tailor your offerings.",
+          "Gain access to personalized credit score predictions based on your uploaded documents, empowering you to understand and improve your financial health.",
         icon: <MyIcon />,
       },
       {
-        headline: "Improve acquisition",
+        headline: "Decentralized Security",
         description:
-          "Enhance your marketing strategies to attract new customers effectively.",
+          "Experience a secure and private credit evaluation process that leverages decentralized technology, ensuring your sensitive information is protected.",
         icon: <MyIcon />,
       },
       {
-        headline: "Drive customer retention",
+        headline: "Incentives for Improvement",
         description:
-          "Implement loyalty programs and personalized experiences to keep customers coming back.",
+          "Receive motivational rewards and benefits for uploading documents and enhancing your credit score, making financial growth more engaging and rewarding.",
         icon: <MyIcon />,
       },
     ],
