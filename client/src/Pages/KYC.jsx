@@ -95,20 +95,18 @@ function KYC() {
 
     // Handle the form submission, e.g., send the data to an API
     const image = await handleImageUpload(formData.image);
-    if(image){
-        try{
-            const res=await addKyc(formData)
-            console.log(res)
-            console.log("Form submitted:", formData);
-            toast.success("Form Submitted")
-        }catch(err){
-            console.log(err)
-        }
-        navigate('/form')
-        
-    }
-    else{
-        toast.error("Failed to upload image")
+    if (image) {
+      try {
+        const res = await addKyc(formData);
+        console.log(res);
+        console.log("Form submitted:", formData);
+        toast.success("Form Submitted");
+      } catch (err) {
+        console.log(err);
+      }
+      navigate("/form");
+    } else {
+      toast.error("Failed to upload image");
     }
     setLoading(false); // Set loading state to false after submission
   };
@@ -126,7 +124,7 @@ function KYC() {
               src="https://nextly.web3templates.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbenefit-two.1d7648d5.png&w=640&q=75"
               alt="KYC Illustration"
               className="w-full h-auto"
-              style={{ maxHeight: "400px" }} // Optional max height for image
+              style={{ maxHeight: "300px", maxWidth: "300px" }} // Optional max height for image
             />
           </div>
 
