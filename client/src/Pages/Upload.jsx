@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../Components/Navbar";
 import axios from "axios";
 import { useWalletContract } from "../Context/WalletProvider";
@@ -14,15 +14,23 @@ function Upload() {
     category: "",
   });
   const [apiResponse, setApiResponse] = useState(null); // New state for API response
+  const [finance, setFinance] = useState(null); // New state for API response
   const context = useWalletContract();
-  const { sendLoanData } = context;
+  const { sendLoanData, getFinance } = context;
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       handleImageUpload(file);
     }
   };
-
+  useEffect(()=>{
+    const fetchFinancee=async()=>{
+        const res=await getFinance()
+        setFinance(res.data)
+        console.log(res.data)
+    }
+    fetchFinancee()
+  },[])
   const handleImageUpload = async (imageFile) => {
     const cloudinaryUrl =
       "https://api.cloudinary.com/v1_1/dke7f8nkt/image/upload";

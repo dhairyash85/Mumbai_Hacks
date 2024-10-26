@@ -156,6 +156,31 @@ function Forms() {
       console.log(err)
     }
   };
+  const [finance, setFinance] = useState(null); 
+  const context = useWalletContract();
+  const { getFinance } = context;
+
+  useEffect(() => {
+    const fetchFinancee = async () => {
+      try {
+        const res = await getFinance();
+        setFinance(res.data);
+        console.log(res.data);
+  
+        setFormData((prevData) => ({
+          ...prevData,
+          ...res.data,
+        }));
+      } catch (error) {
+        console.error("Error fetching finance data:", error);
+      }
+    };
+  
+    fetchFinancee();
+  }, [getFinance]);
+  
+
+
 
   return (
     <div className="bg-black">
