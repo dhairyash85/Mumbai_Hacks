@@ -5,7 +5,7 @@ import { useWalletContract } from "../Context/WalletProvider";
 import { useState } from "react";
 
 export const Navbar = () => {
-  const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
+  const navigation = [];
   const context = useWalletContract();
 
   const [isOpen, setIsOpen] = useState(false);
