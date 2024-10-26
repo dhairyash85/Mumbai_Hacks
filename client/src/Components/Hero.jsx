@@ -11,8 +11,8 @@ export const Hero = () => {
               Credify Pro
             </h1>
             <div className="py-5 leading-normal text-gray-500 lg:text-xl xl:text-xl dark:text-gray-300">
-              Nextly is a free landing page & marketing website template for
-              startups and indie projects. It&apos;s built with React.js &
+              Credify Pro is a free landing page & marketing website template
+              for startups and indie projects. It&apos;s built with React.js &
               TailwindCSS. And it&apos;s completely open-source.
             </div>
 
@@ -70,4 +70,3 @@ export const Hero = () => {
     </>
   );
 };
-

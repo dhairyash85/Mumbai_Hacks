@@ -18,33 +18,18 @@ export function Footer() {
               className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100"
             >
               <img
-                src="/img/logo.svg"
+                src="/logo.png"
                 alt="N"
                 width="32"
                 height="32"
                 className="w-8"
               />
-              <span>Nextly</span>
+              <span>Credify Pro</span>
             </a>
             <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400">
-              Nextly is a free landing page & marketing website template for
-              startups and indie projects. Its built with Next.js & TailwindCSS.
-              And its completely open-source.
-            </div>
-            <div className="mt-5">
-              <a
-                href="https://vercel.com/?utm_source=web3templates&utm_campaign=oss"
-                target="_blank"
-                rel="noopener"
-                className="relative block w-44"
-              >
-                <img
-                  src="/img/vercel.svg"
-                  alt="Powered by Vercel"
-                  width="212"
-                  height="44"
-                />
-              </a>
+              Credify Pro is a free landing page & marketing website template
+              for startups and indie projects. Its built with Next.js &
+              TailwindCSS. And its completely open-source.
             </div>
           </div>
 
@@ -86,9 +71,8 @@ export function Footer() {
 
         {/* Copyright Notice */}
         <div className="my-10 text-sm text-center text-gray-600 dark:text-gray-400">
-          Copyright © {new Date().getFullYear()}. Made with ♥ by{" "}
-          
-          Illustrations from{" "}
+          Copyright © {new Date().getFullYear()}. Made with ♥ by Illustrations
+          from{" "}
           <a href="https://www.glazestock.com/" target="_blank" rel="noopener">
             Glazestock
           </a>

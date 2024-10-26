@@ -67,6 +67,21 @@ export const WalletContractProvider = ({ children }) => {
     const res = await axiosInstance.post("/form/add", { walletAddress, formData });
     return res;
   };
+  const addFinance = async (formData) => {
+    if(!walletAddress){
+        return {error:"randike"}
+    }
+    const res = await axiosInstance.post("/finance/addFinanceData", { walletAddress, formData });
+    return res;
+  };
+
+  const getFinance=async()=>{
+    if(!walletAddress){
+      return {error:"randike"}
+  }
+  const res = await axiosInstance.get(`/getFinanceData/${walletAddress}`);
+  return res;
+  }
 
   const getForms = async () => {
 
@@ -105,6 +120,8 @@ export const WalletContractProvider = ({ children }) => {
         addKyc,
         getForms,
         getKyc,
+        addFinance,
+        getFinance,
       }}
     >
       {children}

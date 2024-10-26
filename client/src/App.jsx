@@ -4,6 +4,7 @@ import { BrowserRouter, Form, Route, Routes } from "react-router-dom";
 import KYC from "./Pages/KYC";
 import Dashboar from "./Pages/Dashboar";
 import Forms from "./Pages/Forms";
+import Upload from "./Pages/Upload";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/kyc" element={<KYC />} />
           <Route path="/dashboard" element={<Dashboar />} />
            <Route path='/form' element={<Forms/>}/>
+           <Route path='/upload' element={<Upload/>}/>
         </Routes>
       </BrowserRouter>
     </div>

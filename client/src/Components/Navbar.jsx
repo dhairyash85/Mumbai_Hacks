@@ -1,44 +1,48 @@
 "use client";
 
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useWalletContract } from "../Context/WalletProvider";
-
-//import a from "next/a";
-//import ThemeChanger from "./DarkSwitch";
-//import img from "next/image";
 import { useState } from "react";
 
 export const Navbar = () => {
-
   const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
-  const context=useWalletContract()
+  const context = useWalletContract();
 
-  // const navigation = ["Product", "Features", "Pricing", "Company", "Blog"];
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="w-full bg-black">
-      <nav className="container relative flex flex-wrap items-center justify-between p-8 mx-auto lg:justify-between xl:px-1">
+    <div className="w-full px-[100px] sm:px-[0px] bg-black border-b-[1px] mb-10 border-white">
+      <nav className="container relative flex flex-wrap items-center justify-between py-8 lg:justify-between xl:px-1">
         {/* Logo */}
-        <a
-          href="/"
-          className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100"
+        <Link
+          to="/"
+          className="flex items-center justify-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100"
         >
-          <span>
-            <img
-              src="/img/logo.svg"
-              width="32"
-              alt="N"
-              height="32"
-              className="w-8"
-            />
-          </span>
-          <span>Nextly</span>
-        </a>
+          <img
+            src="/logo.png" // Update this path to your logo image
+            width="32"
+            alt="Logo"
+            className="w-8"
+          />
+          <span>Credify Pro</span>
+        </Link>
 
-        {/* Hamburger Icon for Mobile */}
-        <button
-          className={`text-white lg:hidden ${isOpen ? "ml-auto" : ""}`}
+        {/* Get Started button - only show on medium and larger screens */}
+        <div className="hidden lg:flex gap-3 nav__item mr-2 lg:ml-auto lg:order-2">
+          <Link
+            to="/kyc"
+            className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5"
+            onClick={() => {
+              connectWallet;
+            }}
+          >
+            Get Started
+          </Link>
+        </div>
+
+        {/* Hamburger Icon for Mobile - only show on small screens */}
+        {/* <button
+          className="text-white lg:hidden ml-auto"
           onClick={() => setIsOpen(!isOpen)}
         >
           <svg
@@ -55,27 +59,9 @@ export const Navbar = () => {
               d="M4 6h16M4 12h16M4 18h16"
             ></path>
           </svg>
-        </button>
+        </button> */}
 
-        {/* Get Started button */}
-        <div className="gap-3 nav__item mr-2 lg:flex ml-auto lg:ml-0 lg:order-2">
-          {/* <ThemeChanger /> */}
-          <div className="hidden mr-3 lg:flex nav__item">
-            <Link
-              to="/kyc"
-              className="px-6 py-2 text-white bg-indigo-600 rounded-md md:ml-5"
-              onClick={()=>{connectWallet}}
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-
-
-        {/* menu  */}
-        {/* <div className="hidden text-center lg:flex lg:items-center">
-          <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
-        {/* Menu */}
+        {/* Menu - Adjust visibility based on state */}
         <div
           className={`${
             isOpen ? "block" : "hidden"

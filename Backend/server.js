@@ -17,9 +17,10 @@ app.use(attachContract);
 
 const kycRoutes = require("./routes/kycRoutes");
 const formRoutes = require("./routes/formRoutes");
-
+const userFinanceRoutes = require('./routes/userFinanceRoutes');
 app.use("/api/kyc", kycRoutes);
 app.use("/api/form", formRoutes);
+app.use('/api/finance', userFinanceRoutes);
 
 const PORT = 5000;
 app.listen(PORT, () => {
