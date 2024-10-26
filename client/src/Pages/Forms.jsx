@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "../Components/Navbar";
 import formImage from "/form.png";
+import { useWalletContract } from "../Context/WalletProvider";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const inputfieldlabelclass =
   "block mb-2 text-sm font-medium text-gray-900 dark:text-white";
@@ -23,6 +26,7 @@ function Forms() {
     checkingBalance: "",
     document: null,
   });
+  const {addForm, connectWallet, walletAddress}=useWalletContract()
 
   // Handle input change
   const handleInputChange = (e) => {
@@ -32,7 +36,9 @@ function Forms() {
       [name]: value,
     });
   };
-
+  useEffect(()=>{
+    connectWallet()
+  },[])
   // Handle file upload
   const handleFileChange = (e) => {
     setFormData({
@@ -42,10 +48,49 @@ function Forms() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleFileUpload = async (file) => {
+    const cloudinaryUrl = "https://api.cloudinary.com/v1_1/dke7f8nkt/upload";
+    const formData = new FormData();
+  
+    // Determine the resource type based on the file type
+    const resourceType = file.type === "application/pdf" ? "raw" : "image";
+  
+    // Appending the file and required parameters
+    formData.append("file", file);
+    formData.append("upload_preset", "TraderHub");
+  
+    try {
+      const res = await axios.post(cloudinaryUrl, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        params: { resource_type: resourceType }
+      });
+      setFormData(prev=>{return{...prev,document:res.data.secure_url}})
+      return res.data.secure_url; // Cloudinary URL of the uploaded file
+    } catch (err) {
+      console.error("Error uploading file:", err);
+      return null;
+    }
+  };
+
+  const handleSubmit = async(e) => {
+    if(!walletAddress){
+      return toast.error('Please connect your wallet')
+
+    }
     e.preventDefault();
-    // Here, you can send the formData to the backend or process it as needed
     console.log(formData);
+    try{
+
+      const url=await handleFileUpload(formData.document)
+      if(url){
+        const res=await addForm(formData)
+        console.log(res)
+      }
+    }catch(err){
+      console.log(err)
+    }
   };
 
   return (

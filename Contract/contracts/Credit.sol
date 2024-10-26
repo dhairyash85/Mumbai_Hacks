@@ -19,7 +19,7 @@ contract Credit {
         Status st;
     }
 
-    mapping(address=>bytes32[]) private forms;
+    mapping(address=>string[]) private forms;
 
     mapping(address => Person) private kycData;
 
@@ -39,14 +39,14 @@ contract Credit {
         string memory bank_account,
         string memory adhar_num,
         string memory image
-    ) public onlyOwner {
+    ) public  {
         kycData[addre] = Person(name, age, city, addr, bank_account, adhar_num, image, Status.pending);
     }
-    function approveKYC(address person) public onlyOwner{
+    function approveKYC(address person) public {
         Person storage temp=kycData[person];
         temp.st=Status.approved;
     }
-    function rejectKYC(address person) public onlyOwner{
+    function rejectKYC(address person) public {
         Person storage temp=kycData[person];
         temp.st=Status.rejected;
     }
@@ -54,10 +54,12 @@ contract Credit {
         return kycData[user];
     }
 
-    function addForm(bytes32 form, address user) public onlyOwner{
-        forms[user].push(form);
+    function addForm(string calldata form, address user) public {
+        string[] storage temp=forms[user];
+        temp.push(form);
+        forms[user]=temp;
     }
-    function getForms(address user) public view returns (bytes32[] memory) {
+    function getForms(address user) public view returns (string[] memory) {
         return forms[user];
     }
 
