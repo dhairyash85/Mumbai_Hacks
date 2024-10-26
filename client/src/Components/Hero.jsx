@@ -16,7 +16,7 @@ export const Hero = () => {
         <div className="flex items-center w-full lg:w-1/2">
           <div className="max-w-2xl mb-8">
             <motion.h1
-              className="text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white"
+              className="text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-indigo-400"
               initial={{ opacity: 0, y: 20 }} // Initial state for heading
               animate={{ opacity: 1, y: 0 }} // Animation when heading appears
               transition={{ duration: 0.5 }}
@@ -32,10 +32,7 @@ export const Hero = () => {
               Credify Pro is a free landing page and marketing website template
               designed specifically for startups and indie projects. It provides
               a sleek and modern design that helps showcase your brand
-              effectively. As an open-source project, it encourages collaboration
-              and innovation within the developer community, making it an
-              excellent choice for anyone looking to launch their online
-              presence quickly and efficiently.
+              effectively.
             </motion.div>
 
             <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">

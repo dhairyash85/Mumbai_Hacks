@@ -96,9 +96,16 @@ export const WalletContractProvider = ({ children }) => {
 
   const getFinance=async()=>{
     if(!walletAddress){
+      connectWallet().then(async(address)=>{
+        console.log(address)
+        const res = await axiosInstance.get(`/finance/getFinanceData/${address}`);
+        console.log(res)
+        return res;
+      })
       return {error:"randike"}
   }
-  const res = await axiosInstance.get(`/getFinanceData/${walletAddress}`);
+  const res = await axiosInstance.get(`/finance/getFinanceData/${walletAddress}`);
+  console.log(res)
   return res;
   }
 

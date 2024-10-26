@@ -17,9 +17,9 @@ const MyIcon = () => (
 
 export const Benefits = () => {
   const content = {
-    imgPos: "left",
-    headline: "Benefits of Our Service",
-    description: "Explore how our services can enhance your business.",
+    // imgPos: "left",
+    // headline: "Benefits of Our Service",
+    // description: "Explore how our services can enhance your business.",
     points: [
       {
         headline: "Enhanced Credit Insights",
