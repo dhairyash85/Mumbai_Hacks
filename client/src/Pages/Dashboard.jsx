@@ -110,7 +110,7 @@ const Dashboard = () => {
 
         {/* Installs */}
         <div className="p-6 bg-gray-800 rounded-lg">
-          <h2 className="text-xl font-semibold">Installs</h2>
+          <h2 className="text-xl font-semibold">Total Checks</h2>
           <div className="flex space-x-2 mt-4">
             <button>Today</button>
             <button className="text-purple-500">Week</button>

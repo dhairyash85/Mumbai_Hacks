@@ -27,7 +27,7 @@ function KYC() {
     const getPrev = async () => {
       const res = await getKyc();
       console.log(res);
-      if (!res.error) {
+      if (res.error) {
         navigate("/dashboard");
       }
     };
