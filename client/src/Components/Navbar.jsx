@@ -62,7 +62,7 @@ export const Navbar = () => {
         </button> */}
 
         {/* Menu - Adjust visibility based on state */}
-        <div
+        {/* <div
           className={`${
             isOpen ? "block" : "hidden"
           } w-full lg:flex lg:w-auto lg:items-center text-center`}
@@ -79,7 +79,7 @@ export const Navbar = () => {
               </li>
             ))}
           </ul>
-        </div> 
+        </div>  */}
       </nav>
     </div>
   );
